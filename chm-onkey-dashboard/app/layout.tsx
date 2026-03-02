@@ -53,25 +53,30 @@ export default function RootLayout({
                 </Link>
 
                 <Link href="/report" className="px-3 py-2.5 rounded-md hover:bg-slate-800/50 transition-colors text-sm font-medium flex items-center gap-3 hover:text-white group">
-                  <svg className="w-4 h-4 text-slate-400 group-hover:text-purple-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                  <svg className="w-4 h-4 text-slate-400 group-hover:text-amber-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                   Auto-Report
                 </Link>
 
+                <Link href="/pm-plan" className="px-3 py-2.5 rounded-md hover:bg-slate-800/50 transition-colors text-sm font-medium flex items-center gap-3 hover:text-white group">
+                  <svg className="w-4 h-4 text-slate-400 group-hover:text-purple-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                  PM Schedule
+                </Link>
+
                 <Link href="/assets" className="px-3 py-2.5 rounded-md hover:bg-slate-800/50 transition-colors text-sm font-medium flex items-center gap-3 hover:text-white group">
-                  <svg className="w-4 h-4 text-slate-400 group-hover:text-amber-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                  <svg className="w-4 h-4 text-slate-400 group-hover:text-indigo-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
                   Asset Registry
                 </Link>
               </div>
 
-              {/* User Profile Footer */}
+              {/* 👑 EXECUTIVE USER PROFILE FOOTER */}
               <div className="p-4 border-t border-slate-800/60 bg-[#0B1120]/30">
                 <div className="flex items-center gap-3 px-2">
-                  <div className="w-8 h-8 rounded-md bg-gradient-to-br from-indigo-500 to-blue-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
-                    JR
+                  <div className="w-8 h-8 rounded-md bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center font-bold text-xs shadow-sm ring-1 ring-emerald-500/50">
+                    MM
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-slate-200 leading-tight">Jaco Rossouw</p>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-0.5">Maint Planner</p>
+                    <p className="text-sm font-medium text-slate-200 leading-tight">Maintenance Manager</p>
+                    <p className="text-[10px] text-emerald-500 uppercase tracking-widest font-bold mt-0.5">GMR 2.1 Appointee</p>
                   </div>
                 </div>
               </div>

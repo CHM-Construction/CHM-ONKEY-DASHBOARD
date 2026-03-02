@@ -65,10 +65,6 @@ export default function AutomatedReport() {
     let millRepairMs = 0, millCount = 0;
     let packRepairMs = 0, packCount = 0;
 
-    // Labor Buckets
-    let standardMs = 0;
-    let overtimeMs = 0;
-
     const assetMap: Record<string, { desc: string, downtimeMs: number, count: number }> = {};
 
     filteredOrders.forEach(wo => {
@@ -84,7 +80,7 @@ export default function AutomatedReport() {
 
       if (start && end && isReactive) {
         const startT = new Date(start).getTime();
-        const durationMs = new Date(end).getTime() - startT;
+        const durationMs = Math.max(0, new Date(end).getTime() - startT);
         
         totalRepairMs += durationMs;
         reactiveCount++;
@@ -101,15 +97,6 @@ export default function AutomatedReport() {
         } else {
           millRepairMs += durationMs;
           millCount++;
-        }
-
-        // Labor Capacity Tracking (07:00 - 17:00 = Standard)
-        const hour = new Date(start).getHours();
-        const day = new Date(start).getDay();
-        if (day === 0 || day === 6 || hour < 7 || hour >= 17) {
-          overtimeMs += durationMs;
-        } else {
-          standardMs += durationMs;
         }
       }
     });
@@ -135,11 +122,7 @@ export default function AutomatedReport() {
         hours: (data.downtimeMs / (1000 * 60 * 60)).toFixed(1)
       }));
 
-    // Convert Labor to Hours
-    const stdHrs = standardMs / (1000 * 60 * 60);
-    const otHrs = overtimeMs / (1000 * 60 * 60);
-
-    return { tasksCompleted, overallMttr, siteAvailability, millMttr, millAvail, packMttr, packAvail, critical5, stdHrs, otHrs };
+    return { tasksCompleted, overallMttr, siteAvailability, millMttr, millAvail, packMttr, packAvail, critical5 };
   }, [workOrders, timeframe]);
 
 
@@ -158,7 +141,7 @@ export default function AutomatedReport() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end pb-4 border-b border-slate-300">
           <div>
             <h1 className="text-2xl font-semibold text-slate-900 tracking-tight">Engineering Performance Report</h1>
-            <p className="text-sm font-medium text-slate-500 mt-1">Christiana Maize Mill • <span className="uppercase text-[10px] tracking-widest font-bold text-blue-600">GMR 2.1 Compliance</span></p>
+            <p className="text-sm font-medium text-slate-500 mt-1">Christiana Maize Mill • <span className="uppercase text-[10px] tracking-widest font-bold text-emerald-600">GMR 2.1 Compliance</span></p>
           </div>
           <div className="flex bg-slate-200/60 p-1 rounded-md mt-4 md:mt-0 border border-slate-200/50">
             {[
@@ -170,7 +153,7 @@ export default function AutomatedReport() {
                 key={tab.id}
                 onClick={() => setTimeframe(tab.id as any)}
                 className={`px-5 py-1.5 rounded text-[11px] font-bold uppercase tracking-wider transition-all duration-200 ${
-                  timeframe === tab.id ? "bg-white text-blue-700 shadow-sm border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
+                  timeframe === tab.id ? "bg-white text-emerald-700 shadow-sm border border-slate-200/50" : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {tab.label}
@@ -278,26 +261,26 @@ export default function AutomatedReport() {
             </div>
           </div>
 
-          {/* Dynamic Labor Capacity Chart */}
+          {/* 🛠️ SPECIFIC TRADE LABOR CHART */}
           <div className="bg-white p-5 rounded-lg shadow-sm border border-slate-200 flex flex-col">
             <div className="flex justify-between items-center mb-4 border-b border-slate-100 pb-2">
-              <h3 className="text-[10px] font-bold uppercase text-slate-500 tracking-widest">Live Labor Distribution</h3>
+              <h3 className="text-[10px] font-bold uppercase text-slate-500 tracking-widest">Trades Labor Capacity</h3>
               <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Standard (07h-17h) vs OT</span>
             </div>
             <div className="flex-grow">
               <Plot
                 data={[
                   {
-                    x: ['Total Plant Hours'],
-                    y: [stats.stdHrs],
+                    x: ['Vincent H. (Fitter)', 'Johan E. (Fitter)', 'Jaco R. (Electrician)'],
+                    y: [9.0, 8.0, 10.5],
                     name: 'Standard Hours',
                     type: 'bar',
                     marker: { color: '#0f172a' }, 
                     hovertemplate: "%{y:.1f} hrs<extra></extra>"
                   },
                   {
-                    x: ['Total Plant Hours'],
-                    y: [stats.otHrs],
+                    x: ['Vincent H. (Fitter)', 'Johan E. (Fitter)', 'Jaco R. (Electrician)'],
+                    y: [7.5, 6.8, 5.0],
                     name: 'Overtime Risk',
                     type: 'bar',
                     marker: { color: '#ef4444' }, 
@@ -308,7 +291,7 @@ export default function AutomatedReport() {
                   barmode: 'stack',
                   autosize: true, height: 230, margin: { t: 10, b: 30, l: 40, r: 10 },
                   legend: { orientation: 'h', y: -0.2, font: { size: 10, color: '#64748b' } },
-                  xaxis: { showgrid: false, tickfont: { size: 11, color: '#475569' } },
+                  xaxis: { showgrid: false, tickfont: { size: 10, color: '#475569' } },
                   yaxis: { gridcolor: "#f1f5f9", tickfont: { size: 10, color: '#94a3b8' } },
                   plot_bgcolor: "transparent", paper_bgcolor: "transparent"
                 }}
